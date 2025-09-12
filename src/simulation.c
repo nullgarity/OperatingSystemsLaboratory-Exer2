@@ -57,6 +57,7 @@ void simulate_step(MemoryManager *mm) {
     // compact first if it's time
     if (mm->current_time > 0 && mm->current_time % mm->compaction_interval == 0) {
         compact_memory(mm);
+        display_memory_state(mm);
     }
     
     process_arriving_jobs(mm);
