@@ -54,16 +54,17 @@ void process_running_jobs(MemoryManager *mm) {
 void simulate_step(MemoryManager *mm) {
     printf("\nTime %d\n", mm->current_time);
     
-    // compact first if it's time
-    if (mm->current_time > 0 && mm->current_time % mm->compaction_interval == 0) {
-        compact_memory(mm);
-        display_memory_state(mm);
-    }
-    
     process_arriving_jobs(mm);
     process_running_jobs(mm);
     display_memory_state(mm);
-    
+
+    // compaction happens AFTER a step finished; compaction has its own event
+    if (mm->current_time > 0 && mm->current_time % mm->compaction_interval == 0) {
+        printf(">>> Compaction step <<<\n");
+        compact_memory(mm);
+        display_memory_state(mm);
+    }
+
     mm->current_time++;
 }
 
