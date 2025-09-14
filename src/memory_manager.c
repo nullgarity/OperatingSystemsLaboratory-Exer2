@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include "memory_manager.h"
 
@@ -87,6 +88,7 @@ void display_memory_state(MemoryManager *mm) {
         addr += mm->partitions[i].size;
     }
     printf("%d\n", addr);
+  getchar();
 }
 
 int find_free_partition(MemoryManager *mm, int size) {
